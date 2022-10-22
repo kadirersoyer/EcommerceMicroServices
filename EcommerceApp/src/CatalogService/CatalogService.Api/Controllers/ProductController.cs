@@ -1,22 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CatalogService.Shared;
+using CatalogService.Shared.Commands;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatalogService.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class ProductController : ControllerBase
     {
-        public ProductController()
-        {
+        private readonly IMediator _mediator;
 
-        }
-        //[HttpGet("{catalog}",Name = "GetAllProducts")]
-        [HttpGet("[action]/{catalog}", Name = "GetAllProducts")]
-        public async Task<IActionResult> GetProducts(string catalog)
+        public ProductController(IMediator mediator)
         {
-            return Ok();
+            _mediator = mediator;
         }
 
+        [HttpPost("[action]", Name = "AddProduct")]
+        public async Task<GenericResponse<SaveProductCommandResponse>> AddProduct([FromBody] SaveProductCommandRequest request)
+        {
+            return await _mediator.Send(request);
+        }
     }
 }
