@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CatalogService.Shared
 {
-    public class GenericResponse<T> where T : class
+    public class GenericResponse<T> where T : class, new()
     {
         public string? Message { get; set; }
         public T? Value { get; set; }
