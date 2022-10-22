@@ -1,4 +1,5 @@
-﻿using CatalogService.Business.Services.Product;
+﻿using CatalogService.Business.Loggings;
+using CatalogService.Business.Services.Product;
 using CatalogService.Infrastructure;
 using CatalogService.Infrastructure.Repositories;
 using CatalogService.Infrastructure.UoW;
@@ -20,6 +21,7 @@ namespace CatalogService.Shared
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ILoggingService, LoggingService>();
             services.AddMediatR(typeof(SaveProductCommandRequest));
         }
     }

@@ -1,4 +1,5 @@
 using CatalogService.Shared;
+using CatalogService.Shared.Middewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,5 +25,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<LoggingMiddeware>();
 
 app.Run();
