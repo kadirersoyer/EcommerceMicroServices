@@ -1,18 +1,23 @@
 ﻿using CatalogService.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CatalogService.Infrastructure.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {
         private CatalogContext catalogContext;
+        private IDbContextTransaction transaction;
         public UnitOfWork(CatalogContext catalogContext)
         {
             this.catalogContext = catalogContext;
+            this.transaction = catalogContext.Database.BeginTransaction();
         }
 
         private bool disposedValue;
@@ -25,6 +30,12 @@ namespace CatalogService.Infrastructure.UoW
         public async Task SaveChangesAsync()
         {
             await catalogContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+
+        public async Task RollBackTransaction()
+        {
+            await transaction.RollbackAsync();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -34,11 +45,13 @@ namespace CatalogService.Infrastructure.UoW
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects)
+                    transaction.Dispose();
                     catalogContext.Dispose();
                 }
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer
                 // TODO: set large fields to null
                 catalogContext = null;
+                transaction = null;
                 disposedValue = true;
             }
         }
@@ -56,5 +69,7 @@ namespace CatalogService.Infrastructure.UoW
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+       
     }
 }

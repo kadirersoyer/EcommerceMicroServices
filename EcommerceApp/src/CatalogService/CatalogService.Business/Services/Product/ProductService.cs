@@ -16,8 +16,17 @@ namespace CatalogService.Business.Services.Product
         }
         public async Task<ProductEntity> AddProductAsync(ProductEntity product)
         {
-            var entity = await _productRepository.Add(product);
-            return entity;
+            try
+            {
+                var entity = await _productRepository.Add(product);
+                await _unitOfWork.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollBackTransaction();
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

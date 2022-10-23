@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CatalogService.Infrastructure.Repositories
 {
@@ -15,8 +16,12 @@ namespace CatalogService.Infrastructure.Repositories
         public async Task<T> Add(T t)
         {
             await dbCOontext.AddAsync(t);
-            await dbCOontext.SaveChangesAsync();
             return t;
+        }
+
+        public async Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await this.dbSet.Where(predicate).ToListAsync();
         }
 
         public async Task<IList<T>> GetAll()
@@ -34,7 +39,6 @@ namespace CatalogService.Infrastructure.Repositories
         {
             var entity = dbSet.Attach(t);
             dbCOontext.Entry(entity).State = EntityState.Modified;
-            await dbCOontext.SaveChangesAsync();
             return t;
         }
     }

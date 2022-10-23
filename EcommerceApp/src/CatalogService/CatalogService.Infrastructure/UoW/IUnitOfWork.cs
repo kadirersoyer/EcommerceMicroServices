@@ -11,5 +11,6 @@ namespace CatalogService.Infrastructure.UoW
     {
         IRepository<T> GetRepository<T>() where T: BaseEntity;
         Task SaveChangesAsync();
+        Task RollBackTransaction();
     }
 }

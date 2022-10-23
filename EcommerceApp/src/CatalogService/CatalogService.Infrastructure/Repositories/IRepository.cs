@@ -1,4 +1,6 @@
-﻿namespace CatalogService.Infrastructure.Repositories
+﻿using System.Linq.Expressions;
+
+namespace CatalogService.Infrastructure.Repositories
 {
     public interface IRepository<T> where T : BaseEntity
     {
@@ -31,5 +33,12 @@
         /// </summary>
         /// <returns></returns>
         Task<IList<T>> GetAll();
+
+        /// <summary>
+        ///  For Quries
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate);
     }
 }
