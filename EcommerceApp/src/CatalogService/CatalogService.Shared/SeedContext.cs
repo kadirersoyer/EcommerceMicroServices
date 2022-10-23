@@ -14,7 +14,11 @@ namespace CatalogService.Shared
                 var context = scope.ServiceProvider.GetService<CatalogContext>();
                 var databaseAvailable = context?.Database?.CanConnect() ?? false;
 
-                if (!databaseAvailable) { context?.Database.Migrate(); } ;
+                if (!databaseAvailable)
+                {
+                    var connString = context?.Database.GetConnectionString();
+                    context?.Database.Migrate();
+                };
 
             }
         }

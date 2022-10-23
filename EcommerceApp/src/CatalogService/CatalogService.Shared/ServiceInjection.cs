@@ -14,7 +14,7 @@ namespace CatalogService.Shared
     {
         public static void Inject(IServiceCollection services)
         {
-            services.AddDbContext<CatalogContext>(options => options.UseSqlServer("Data Source=localhost,1433; User Id = sa; Initial Catalog=CatalogDB; Password=Password4598."));
+            services.AddDbContext<CatalogContext>(options => options.UseSqlServer("Data Source=sql_server_container; User Id=sa; Initial Catalog=CatalogDB; Password=Password4598."));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

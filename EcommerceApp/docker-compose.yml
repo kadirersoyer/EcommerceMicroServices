@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   catalogservice.api:
+    container_name: catalog_service
     image: ${DOCKER_REGISTRY-}catalogserviceapi
     ports:
         - "8000:80"
@@ -12,6 +13,8 @@ services:
         - catalog_database
   catalog_database:
         image: "mcr.microsoft.com/mssql/server:2017-latest"
+        ports:
+          - "1433:1433"
         container_name: sql_server_container
         environment:
             SA_PASSWORD: "Password4598."
