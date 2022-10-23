@@ -12,9 +12,8 @@ builder.Services.AddSwaggerGen();
 
 ServiceInjection.Inject(builder.Services);
 
-
 var app = builder.Build();
-
+SeedContext.SeedData(app);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
