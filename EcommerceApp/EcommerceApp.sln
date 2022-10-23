@@ -9,11 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Api", "src\CatalogService\CatalogService.Api\CatalogService.Api.csproj", "{AA5F3CB8-1AD2-4A43-804D-C52F0C8B3687}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Infrastructure", "src\CatalogService\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{C345165E-4BD0-4342-A037-E739CAFED3E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Infrastructure", "src\CatalogService\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{C345165E-4BD0-4342-A037-E739CAFED3E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Shared", "src\CatalogService\CatalogService.Shared\CatalogService.Shared.csproj", "{BC2B6FDB-83B1-4D21-B56E-96FCD4914238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Shared", "src\CatalogService\CatalogService.Shared\CatalogService.Shared.csproj", "{BC2B6FDB-83B1-4D21-B56E-96FCD4914238}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Business", "src\CatalogService\CatalogService.Business\CatalogService.Business.csproj", "{11007DEF-0605-40D8-98C9-B8A174AED7B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Business", "src\CatalogService\CatalogService.Business\CatalogService.Business.csproj", "{11007DEF-0605-40D8-98C9-B8A174AED7B0}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{83F9C7F5-FD56-4BD6-8F6F-8D6CE4547EE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{11007DEF-0605-40D8-98C9-B8A174AED7B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11007DEF-0605-40D8-98C9-B8A174AED7B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11007DEF-0605-40D8-98C9-B8A174AED7B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F9C7F5-FD56-4BD6-8F6F-8D6CE4547EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F9C7F5-FD56-4BD6-8F6F-8D6CE4547EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F9C7F5-FD56-4BD6-8F6F-8D6CE4547EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F9C7F5-FD56-4BD6-8F6F-8D6CE4547EE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
