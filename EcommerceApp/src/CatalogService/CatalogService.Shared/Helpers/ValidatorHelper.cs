@@ -12,7 +12,8 @@ namespace CatalogService.Shared.Helpers
         /// </summary>
         private static readonly Dictionary<Type, Type> validators = new Dictionary<Type, Type>()
         {
-            { typeof(SaveProductCommandRequest),typeof(SaveProductRequestValidator) }
+            { typeof(SaveProductCommandRequest),typeof(SaveProductRequestValidator) },
+            { typeof(UpdateProductCommandRequest),typeof(UpdateProductRequestValidator) }
         };
 
         /// <summary>

@@ -28,11 +28,20 @@ namespace CatalogService.Infrastructure.Repositories
 
         Task<T> GetById(object id);
 
+
+        /// <summary>
+        ///  Delete by id from Context
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+
+        Task<bool> DeleteById(object id);
+
         /// <summary>
         ///  Get All
         /// </summary>
         /// <returns></returns>
-        Task<IList<T>> GetAll();
+        Task<List<T>> GetAll();
 
         /// <summary>
         ///  For Quries

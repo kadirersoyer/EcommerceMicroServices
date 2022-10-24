@@ -22,5 +22,11 @@ namespace CatalogService.Api.Controllers
         {
             return await _mediator.Send(request);
         }
+
+        [HttpPost("[action]", Name = "UpdateProduct")]
+        public async Task<GenericResponse<UpdateProductCommandResponse>> UpdateProduct([FromBody] UpdateProductCommandRequest request)
+        {
+            return await _mediator.Send(request);
+        }
     }
 }

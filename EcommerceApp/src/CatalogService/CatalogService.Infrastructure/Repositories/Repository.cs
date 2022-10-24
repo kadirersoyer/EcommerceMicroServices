@@ -19,12 +19,19 @@ namespace CatalogService.Infrastructure.Repositories
             return t;
         }
 
+        public async Task<bool> DeleteById(object id)
+        {
+            var entity = await GetById(id);
+            if (entity != null) { dbCOontext.Remove(entity); return true; }
+            return false;
+        }
+
         public async Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await this.dbSet.Where(predicate).ToListAsync();
         }
 
-        public async Task<IList<T>> GetAll()
+        public async Task<List<T>> GetAll()
         {
             return await dbSet.ToListAsync();
         }
@@ -37,9 +44,11 @@ namespace CatalogService.Infrastructure.Repositories
 
         public async Task<T> Update(T t)
         {
-            var entity = dbSet.Attach(t);
-            dbCOontext.Entry(entity).State = EntityState.Modified;
-            return t;
+            return await Task.Run(() =>
+            {
+                dbCOontext.Update(t);
+                return t;
+            });
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using CatalogService.Infrastructure.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +9,14 @@ namespace CatalogService.Infrastructure
 {
     public class CatalogContext: DbContext
     {
-        public DbSet<Product> Products { get; set; }
+        public DbSet<CatalogService.Infrastructure.Entities.Product> Products { get; set; }
         public CatalogContext(DbContextOptions<CatalogContext> dbContextOptions): base(dbContextOptions)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>(p =>
+            modelBuilder.Entity<CatalogService.Infrastructure.Entities.Product>(p =>
             {
                 p.Property(c => c.Name).IsRequired(true).HasColumnType("nvarchar(200)");
                 p.Property(c => c.Summary).IsRequired(false).HasColumnType("nvarchar(200)");

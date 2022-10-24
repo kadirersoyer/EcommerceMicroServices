@@ -23,20 +23,29 @@ namespace CatalogService.Shared.Handlers
 
             var response = new GenericResponse<SaveProductCommandResponse>();
             response.Value = new SaveProductCommandResponse();
-            
-            var isValidate = await ValidatorHelper.ValidateAsync(request);
 
-            if (!isValidate.IsValid) { response.Value.ValidationResult = isValidate; return response; };
+            try
+            {
+                var isValidate = await ValidatorHelper.ValidateAsync(request);
 
-            var mappedEntity = await MapperHelper.MapTo<SaveProductCommandRequest, Product>(request);
+                if (!isValidate.IsValid) { response.ValidationResult = isValidate ?? new FluentValidation.Results.ValidationResult(); return response; };
 
-            mappedEntity.CreatedDate = DateTime.Now;
-            mappedEntity.UpdatedDate = DateTime.Now;
+                var mappedEntity = await MapperHelper.MapTo<SaveProductCommandRequest, Product>(request);
 
-            var addedEntity = await _productService.AddProductAsync(mappedEntity);
+                mappedEntity.CreatedDate = DateTime.Now;
+                mappedEntity.UpdatedDate = DateTime.Now;
 
-            response.Value.ProductModel = addedEntity.Adapt<ProductModel>();
-            response.Message = "Success";
+                var addedEntity = await _productService.AddProductAsync(mappedEntity);
+
+                response.Value.ProductModel = addedEntity.Adapt<ProductModel>();
+                response.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                // log ex
+                response.Message = ex.Message;    
+            }
+
             return response;
         }
     }
