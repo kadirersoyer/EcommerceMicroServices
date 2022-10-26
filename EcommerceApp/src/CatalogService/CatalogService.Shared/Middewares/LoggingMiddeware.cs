@@ -1,7 +1,7 @@
 ﻿using CatalogService.Business.Loggings;
+using CatalogService.Shared.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualBasic;
 
 namespace CatalogService.Shared.Middewares
 {
@@ -15,14 +15,18 @@ namespace CatalogService.Shared.Middewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            var loggingService = context.RequestServices.GetRequiredService<ILoggingService>();
+            var _loggingService = context.RequestServices.GetRequiredService<ILoggingService>();
+
             try
             {
-                await _next(context);
+                var requestBody = await ContextHelper.ReadRequestBody(context);
+                await _loggingService.Log(Infrastructure.Enums.LogLevel.Info, requestBody);
+                var responseBody = await ContextHelper.ReadResponseBody(context, _next);
+                await _loggingService.Log(Infrastructure.Enums.LogLevel.Info, responseBody);
             }
             catch (Exception ex)
             {
-                await loggingService.Log(Infrastructure.Enums.LogLevel.Error, $"Error Message:{ex.Message}");
+                await _loggingService.Log(Infrastructure.Enums.LogLevel.Error, $"Error Message:{ex.Message}");
             }
         }
     }
