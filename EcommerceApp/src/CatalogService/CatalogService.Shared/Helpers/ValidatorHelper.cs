@@ -1,4 +1,5 @@
 ﻿using CatalogService.Shared.Commands;
+using CatalogService.Shared.Queries;
 using CatalogService.Shared.Validators;
 using FluentValidation;
 using FluentValidation.Results;
@@ -13,7 +14,8 @@ namespace CatalogService.Shared.Helpers
         private static readonly Dictionary<Type, Type> validators = new Dictionary<Type, Type>()
         {
             { typeof(SaveProductCommandRequest),typeof(SaveProductRequestValidator) },
-            { typeof(UpdateProductCommandRequest),typeof(UpdateProductRequestValidator) }
+            { typeof(UpdateProductCommandRequest),typeof(UpdateProductRequestValidator) },
+            { typeof(GetProductByCategoryQueryRequest),typeof(GetProductByCategoryNameValidator) }
         };
 
         /// <summary>

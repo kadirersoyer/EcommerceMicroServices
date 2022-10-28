@@ -15,10 +15,21 @@ namespace CatalogService.Shared.Handlers
         {
             _productService = productService;
         }
+
+        /// <summary>
+        ///  Business logics are here
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<GenericResponse<GetProductByCategoryQueryResponse>> Handle(GetProductByCategoryQueryRequest request, CancellationToken cancellationToken)
         {
             var response = new GenericResponse<GetProductByCategoryQueryResponse>();
             response.Value = new GetProductByCategoryQueryResponse();
+
+            var validator = await ValidatorHelper.ValidateAsync(request);
+
+            if (!validator.IsValid) { response.Message = validator.Errors.FirstOrDefault()?.ErrorMessage; response.IsSuccess = false; return response; }
 
             var queries = await _productService.GetProductsByCategoryNameAsync(request.Category);
 
