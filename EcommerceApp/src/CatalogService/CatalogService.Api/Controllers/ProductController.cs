@@ -1,5 +1,6 @@
 ﻿using CatalogService.Shared;
 using CatalogService.Shared.Commands;
+using CatalogService.Shared.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,5 +29,12 @@ namespace CatalogService.Api.Controllers
         {
             return await _mediator.Send(request);
         }
+
+        [HttpGet("[action]", Name = "GetProductByCategory")]
+        public async Task<ActionResult<GenericResponse<GetProductByCategoryQueryResponse>>> GetProductByCategory([FromQuery] GetProductByCategoryQueryRequest request)
+        {
+            return await _mediator.Send(request);
+        }
     }
 }
+

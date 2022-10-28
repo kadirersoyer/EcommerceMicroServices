@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="productName"></param>
         /// <returns></returns>
-        Task<CatalogService.Infrastructure.Entities.Product> GetProductByCategoryNameAsync(string productName);
+        Task<List<CatalogService.Infrastructure.Entities.Product>> GetProductsByCategoryNameAsync(string productName);
 
 
         /// <summary>

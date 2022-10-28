@@ -54,10 +54,10 @@ namespace CatalogService.Business.Services.Product
             return entity;
         }
 
-        public async Task<CatalogService.Infrastructure.Entities.Product> GetProductByCategoryNameAsync(string categoryName)
+        public async Task<List<CatalogService.Infrastructure.Entities.Product>> GetProductsByCategoryNameAsync(string categoryName)
         {
-            var entity = await (_productRepository.FindAsync(m => m.Category.Contains(categoryName)));
-            return entity?.FirstOrDefault() ?? new CatalogService.Infrastructure.Entities.Product();
+            var entities = await (_productRepository.FindAsync(m => m.Category.Contains(categoryName)));
+            return entities;
         }
 
         public async Task<CatalogService.Infrastructure.Entities.Product> GetProductByNameAsync(string productName)
