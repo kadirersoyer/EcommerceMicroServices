@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-ServiceInjection.Inject(builder.Services);
+ServiceInjection.Inject(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 SeedContext.SeedData(app);
