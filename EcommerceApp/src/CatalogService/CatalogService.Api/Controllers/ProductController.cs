@@ -4,6 +4,7 @@ using CatalogService.Shared.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace CatalogService.Api.Controllers
 {
@@ -19,18 +20,23 @@ namespace CatalogService.Api.Controllers
         }
 
         [HttpPost("[action]", Name = "AddProduct")]
+        [ProducesResponseType(typeof(GenericResponse<SaveProductCommandResponse>), (int)HttpStatusCode.Created)]
         public async Task<GenericResponse<SaveProductCommandResponse>> AddProduct([FromBody] SaveProductCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpPost("[action]", Name = "UpdateProduct")]
-        public async Task<GenericResponse<UpdateProductCommandResponse>> UpdateProduct([FromBody] UpdateProductCommandRequest request)
+        [ProducesResponseType(typeof(GenericResponse<UpdateProductCommandResponse>),(int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<GenericResponse<UpdateProductCommandResponse>>> UpdateProduct([FromBody] UpdateProductCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpGet("[action]", Name = "GetProductByCategory")]
+        [ProducesResponseType(typeof(GenericResponse<GetProductByCategoryQueryResponse>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<GenericResponse<GetProductByCategoryQueryResponse>>> GetProductByCategory([FromQuery] GetProductByCategoryQueryRequest request)
         {
             return await _mediator.Send(request);
