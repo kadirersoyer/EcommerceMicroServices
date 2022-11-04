@@ -11,6 +11,16 @@ services:
       dockerfile: src/CatalogService/CatalogService.Api/Dockerfile
     depends_on:
         - catalog_database
+  basketservice.api:
+    container_name: basket_service
+    image: ${DOCKER_REGISTRY-}basketserviceapi
+    ports:
+        - "53471:80"
+    build:
+      context: .
+      dockerfile: src/BasketService/BasketService.Api/Dockerfile
+    depends_on:
+        - redis_database
   catalog_database:
         image: "mcr.microsoft.com/mssql/server:2017-latest"
         ports:
@@ -21,3 +31,10 @@ services:
             ACCEPT_EULA: "Y"
         volumes:
             - ./src/CatalogService/sql-volume:/var/opt/mssql/data
+  redis_database:
+        image: "redis/redis-stack-server:latest"
+        ports:
+          - "6379:6379"
+        container_name: redis_container
+        volumes:
+            - ./src/BasketService/redis-volume:/data
