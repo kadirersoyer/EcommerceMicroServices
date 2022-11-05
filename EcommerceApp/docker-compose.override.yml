@@ -9,5 +9,7 @@ services:
   basketservice.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - Redis_ExternalIpAddress=172.21.144.1 # This Code Line For Redis External Ip Address not Localhost
     ports:
       - "80"
+      
