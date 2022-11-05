@@ -1,4 +1,4 @@
-namespace DiscountService
+namespace DiscountService.Api
 {
     public class WeatherForecast
     {
