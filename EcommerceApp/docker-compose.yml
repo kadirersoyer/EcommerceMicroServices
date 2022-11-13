@@ -38,6 +38,12 @@ services:
         container_name: redis_container
         volumes:
             - ./src/BasketService/redis-volume:/data
+  discount_database:
+        image: "postgres:latest"
+        environment:
+          PGDATA: /var/lib/postgresql/data/discount_data/
+  pgadmin:
+        image: "dpage/pgadmin4"
   portainer:
         image: "portainer/portainer-ce"
         ports:
@@ -47,3 +53,9 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./portainer_data:/data
+  discountservice.api:
+    image: ${DOCKER_REGISTRY-}discountserviceapi
+    build:
+      context: .
+      dockerfile: src/DiscountService/DiscountService.Api/Dockerfile
+  
